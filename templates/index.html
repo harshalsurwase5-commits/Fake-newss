@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Fake News Detector</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">🛡️ TruthAI</div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="#about">About</a>
+        </div>
+    </nav>
+
+
+    <section class="hero">
+
+        <div class="hero-text">
+
+            <div class="badge">
+                ✨ GenAI Powered
+            </div>
+
+            <h1>
+                Detect Fake News<br>
+                <span>with AI</span>
+            </h1>
+
+            <p>
+                Analyze news articles and headlines to identify
+                potentially fake or misleading information.
+            </p>
+
+        </div>
+
+
+        <div class="detector-card">
+
+            <h2>🔍 Analyze News</h2>
+
+            <p class="small-text">
+                Paste a headline or complete news article below.
+            </p>
+
+            <form method="POST">
+
+                <textarea
+                    name="news"
+                    placeholder="Paste your news article or headline here..."
+                    required></textarea>
+
+                <button type="submit">
+                    Analyze with AI →
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    {% if result %}
+
+    <section class="result-section">
+
+        <h2>Analysis Result</h2>
+
+        <div class="result-card">
+
+            <div class="result-top">
+
+                <div>
+
+                    {% if "Fake" in result %}
+
+                        <div class="status fake">
+                            ⚠ Potentially Fake
+                        </div>
+
+                    {% elif "Misleading" in result %}
+
+                        <div class="status misleading">
+                            ⚠ Potentially Misleading
+                        </div>
+
+                    {% else %}
+
+                        <div class="status reliable">
+                            ✓ Likely Reliable
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="confidence">
+
+                    <span>AI Confidence</span>
+
+                    <strong>
+                        {{ confidence }}%
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar"
+                    style="width: {{ confidence }}%;">
+                </div>
+
+            </div>
+
+
+            <div class="explanation">
+
+                <h3>🤖 AI Explanation</h3>
+
+                <p>
+                    {{ explanation }}
+                </p>
+
+            </div>
+
+
+            {% if suspicious %}
+
+            <div class="indicators">
+
+                <h3>🚩 Suspicious Indicators</h3>
+
+                <ul>
+
+                    {% for word in suspicious %}
+
+                    <li>
+                        "{{ word }}"
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+            {% endif %}
+
+
+            <div class="disclaimer">
+
+                <strong>Note:</strong>
+                This prototype provides an AI-assisted assessment.
+                Always verify important information through
+                reliable and independent sources.
+
+            </div>
+
+        </div>
+
+    </section>
+
+    {% endif %}
+
+
+    <section id="about" class="about">
+
+        <h2>How TruthAI Works</h2>
+
+        <div class="features">
+
+            <div>
+                <span>01</span>
+                <h3>Input</h3>
+                <p>
+                    User enters a news headline or article.
+                </p>
+            </div>
+
+            <div>
+                <span>02</span>
+                <h3>AI Analysis</h3>
+                <p>
+                    The system analyzes language patterns
+                    and suspicious indicators.
+                </p>
+            </div>
+
+            <div>
+                <span>03</span>
+                <h3>Result</h3>
+                <p>
+                    The system provides a classification,
+                    confidence score and explanation.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+        © 2026 TruthAI — Fake News Detection Prototype
+    </footer>
+
+</body>
+</html>
